@@ -84,18 +84,18 @@ public class SwerveModule {
     }
 
     private Rotation2d getAngle(){
-        return Rotation2d.fromDegrees(integratedAngleEncoder.getPosition());
+        return Rotation2d.fromDegrees(Math.round(integratedAngleEncoder.getPosition() * 100.0) / 100.0);
     }
 
     public Rotation2d getAnalogEncoder(){
         double angle = angleEncoder.getAbsolutePosition();
         angle *= 2.0 * Math.PI;
-        return Rotation2d.fromRadians(angle);
+        return Rotation2d.fromRadians(Math.round(angle * 100.0) / 100.0);
     }
 
     public void resetToAbsolute(){
         double absolutePosition = getAnalogEncoder().getDegrees() - angleOffset.getDegrees();
-        mAngleMotor.getEncoder().setPosition(absolutePosition);
+        integratedAngleEncoder.setPosition(absolutePosition);
     }
 
 
@@ -110,7 +110,7 @@ public class SwerveModule {
         angleController.setI(Constants.Swerve.angleKI);
         angleController.setD(Constants.Swerve.angleKD);
         angleController.setFF(Constants.Swerve.angleKF);
-        mAngleMotor.enableVoltageCompensation(Constants.Swerve.voltageComp);
+        mAngleMotor.enableVoltageCompensation(Constants.Swerve.voltageCompAngle);
         mAngleMotor.burnFlash();
         resetToAbsolute();
     }
@@ -127,7 +127,7 @@ public class SwerveModule {
         driveController.setI(Constants.Swerve.angleKI);
         driveController.setD(Constants.Swerve.angleKD);
         driveController.setFF(Constants.Swerve.angleKF);
-        mDriveMotor.enableVoltageCompensation(Constants.Swerve.voltageComp);
+        mDriveMotor.enableVoltageCompensation(Constants.Swerve.voltageCompDrive);
         mDriveMotor.burnFlash();
         driveEncoder.setPosition(0.0);
     }

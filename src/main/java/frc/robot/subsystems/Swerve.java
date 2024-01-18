@@ -109,12 +109,27 @@ public class Swerve extends SubsystemBase {
     }
 
     public Rotation2d getYaw() {
-        return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(180 - gyro.getYaw().getValueAsDouble()) : Rotation2d.fromDegrees(gyro.getYaw().getValueAsDouble());
+        return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw().getValueAsDouble()) : Rotation2d.fromDegrees(gyro.getYaw().getValueAsDouble());
     }
 
     public void resetModulesToAbsolute(){
         for(SwerveModule mod : mSwerveMods){
             mod.resetToAbsolute();
+        }
+    }
+
+    public void driveStraight(){
+        double speed = 0.7;
+        Rotation2d angle = Rotation2d.fromDegrees(0);
+        SwerveModuleState[] swerveModuleStates = 
+            {
+                new SwerveModuleState(speed, angle),
+                new SwerveModuleState(speed, angle),
+                new SwerveModuleState(speed, angle),
+                new SwerveModuleState(speed, angle)
+            };
+        for(SwerveModule mod : mSwerveMods){
+            mod.setDesiredState(swerveModuleStates[mod.moduleNumber], true);
         }
     }
 
@@ -125,7 +140,7 @@ public class Swerve extends SubsystemBase {
         SmartDashboard.putString("Yaw status", getYaw().toString());
 
         for(SwerveModule mod : mSwerveMods){
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Analog Encoder", mod.getAnalogEncoder().getDegrees());
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Analog Encoder Degrees", mod.getAnalogEncoder().getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond); 
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Position", mod.getPosition().distanceMeters); 

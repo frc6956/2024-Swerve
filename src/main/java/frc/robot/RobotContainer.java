@@ -40,6 +40,8 @@ public class RobotContainer {
     private final int strafeAxis = XboxController.Axis.kLeftX.value;
     private final int rotationAxis = XboxController.Axis.kRightX.value;
 
+    private final JoystickButton driveStraight = new JoystickButton(driver, XboxController.Button.kY.value);
+
     private final JoystickButton e_presButton_0 = new JoystickButton(operator, XboxController.Button.kY.value);
     private final JoystickButton e_presButton_1 = new JoystickButton(operator, XboxController.Button.kX.value);
     private final JoystickButton e_presButton_2 = new JoystickButton(operator, XboxController.Button.kA.value);
@@ -88,6 +90,8 @@ public class RobotContainer {
         /* Driver Buttons (and op buttons) */
         
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+
+        driveStraight.onTrue(new RunCommand(() -> s_Swerve.driveStraight()));
 
         // xModeButton.whileTrue(new InstantCommand(()-> s_Swerve.setXMode()));
         

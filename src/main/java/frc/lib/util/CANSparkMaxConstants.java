@@ -37,13 +37,13 @@ public class CANSparkMaxConstants {
         /** 12.8 : 1 */
         double angleGearRatio = ((150/7) / 1.0);
  
-        double angleKP = 0.255;
+        double angleKP = 0.05;
         double angleKI = 0.0;
         double angleKD = 0.0;
         double angleKF = 0.0;
  
         boolean driveMotorInvert = false;
-        boolean angleMotorInvert = false;
+        boolean angleMotorInvert = true;
         boolean analogEncoderRevert = true;
         return new CANSparkMaxConstants(wheelDiameter, angleGearRatio, driveGearRatio, angleKP, angleKI, angleKD, angleKF, driveMotorInvert, angleMotorInvert, analogEncoderRevert);
     }
