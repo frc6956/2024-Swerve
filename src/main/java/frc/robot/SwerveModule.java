@@ -6,8 +6,12 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.AnalogEncoder;
+import frc.lib.util.CANSparkMaxUtil;
+import frc.lib.util.CANSparkMaxUtil.Usage;
 import frc.lib.util.SwerveModuleConstants;
 import frc.lib.math.OnboardModuleState;
+
+import java.util.ArrayList;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -30,6 +34,8 @@ public class SwerveModule {
 
     private SparkPIDController driveController;
     private SparkPIDController angleController;
+
+    private ArrayList<Double> AnalogEncoderValues = new ArrayList<Double>();
 
     private SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.Swerve.driveKS, Constants.Swerve.driveKV, Constants.Swerve.driveKA);
 
@@ -78,12 +84,13 @@ public class SwerveModule {
     }
 
     public void setAngle(SwerveModuleState desiredState){
-        Rotation2d angle = (Math.abs(desiredState.speedMetersPerSecond) <= (Constants.Swerve.maxSpeed * 0.1)) ? lastAngle : desiredState.angle; //Prevent rotating module if speed is less then 1%. Prevents Jittering.
+        Rotation2d angle = (Math.abs(desiredState.speedMetersPerSecond) <= (Constants.Swerve.maxSpeed * 0.01)) ? lastAngle : desiredState.angle; //Prevent rotating module if speed is less then 1%. Prevents Jittering.
         angleController.setReference(angle.getDegrees(), ControlType.kPosition);
         lastAngle = angle;
     }
 
     private Rotation2d getAngle(){
+        addAnalogEncoder();
         return Rotation2d.fromDegrees(Math.round(integratedAngleEncoder.getPosition() * 100.0) / 100.0);
     }
 
@@ -98,10 +105,28 @@ public class SwerveModule {
         integratedAngleEncoder.setPosition(absolutePosition);
     }
 
+    public void addAnalogEncoder(){
+        if (AnalogEncoderValues.size() > 500){
+            AnalogEncoderValues.remove(0);
+            AnalogEncoderValues.add(getAnalogEncoder().getDegrees());
+        } else {
+            AnalogEncoderValues.add(getAnalogEncoder().getDegrees());
+        }
+    }
+
+    public double getAverageAnalogEncoder(){
+        double total = 0;
+        for (int i = 0; i < AnalogEncoderValues.size(); i++){
+            total += AnalogEncoderValues.get(i);
+        }
+        return total / AnalogEncoderValues.size();
+    }
+
 
     private void configAngleMotor(){
         
         mAngleMotor.restoreFactoryDefaults();
+        CANSparkMaxUtil.setCANSparkMaxBusUsage(mAngleMotor, Usage.kPositionOnly);
         mAngleMotor.setSmartCurrentLimit(Constants.Swerve.angleContinuousCurrentLimit);
         mAngleMotor.setInverted(Constants.Swerve.angleMotorInvert);
         mAngleMotor.setIdleMode(Constants.Swerve.angleNeutralMode);
@@ -118,6 +143,7 @@ public class SwerveModule {
     private void configDriveMotor(){        
 
         mDriveMotor.restoreFactoryDefaults();
+        CANSparkMaxUtil.setCANSparkMaxBusUsage(mDriveMotor, Usage.kAll);
         mDriveMotor.setSmartCurrentLimit(Constants.Swerve.driveContinuousCurrentLimit);
         mDriveMotor.setInverted(Constants.Swerve.driveMotorInvert);
         mDriveMotor.setIdleMode(Constants.Swerve.driveNeutralMode);

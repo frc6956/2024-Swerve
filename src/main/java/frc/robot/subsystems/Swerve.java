@@ -22,6 +22,7 @@ public class Swerve extends SubsystemBase {
     public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
     public Pigeon2 gyro;
+    public boolean isFieldRelative = false;
 
     public Swerve() {
         
@@ -108,8 +109,16 @@ public class Swerve extends SubsystemBase {
         gyro.setYaw(0);
     }
 
+    public void changeFieldRelative(){
+        isFieldRelative = !isFieldRelative;
+    }
+
+    public boolean getIsFieldRelative(){
+        return isFieldRelative;
+    }
+
     public Rotation2d getYaw() {
-        return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw().getValueAsDouble()) : Rotation2d.fromDegrees(gyro.getYaw().getValueAsDouble());
+        return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(180 - gyro.getYaw().getValueAsDouble()) : Rotation2d.fromDegrees(gyro.getYaw().getValueAsDouble());
     }
 
     public void resetModulesToAbsolute(){
@@ -119,7 +128,7 @@ public class Swerve extends SubsystemBase {
     }
 
     public void driveStraight(){
-        double speed = 0.7;
+        double speed = 0.4;
         Rotation2d angle = Rotation2d.fromDegrees(0);
         SwerveModuleState[] swerveModuleStates = 
             {
@@ -138,12 +147,15 @@ public class Swerve extends SubsystemBase {
         swerveOdometry.update(getYaw(), getModulePositions());  
         SmartDashboard.putString("Robot Location: ", getPose().getTranslation().toString());
         SmartDashboard.putString("Yaw status", getYaw().toString());
+        SmartDashboard.putData(gyro);
+        SmartDashboard.putBoolean("Is Field Relative", isFieldRelative);
 
         for(SwerveModule mod : mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Analog Encoder Degrees", mod.getAnalogEncoder().getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond); 
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Position", mod.getPosition().distanceMeters); 
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Position", mod.getPosition().distanceMeters);
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Average Analog Encoder Degrees", mod.getAverageAnalogEncoder()); 
                
         }
     }
