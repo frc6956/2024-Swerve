@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.Timer;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -36,7 +37,7 @@ public class SwerveModule {
 	 * Constructs a SwerveModule and configures the driving and turning motor,
 	 * encoder, and PID controller.
 	 */
-	public SwerveModule(int drivingCANId, int turningCANId, int turningAnalogPort) {
+	public SwerveModule(int drivingCANId, int turningCANId, int turningAnalogPort, boolean driveMotorInvert) {
 		m_drivingSparkMax = new CANSparkMax(drivingCANId, MotorType.kBrushless);
 		m_turningSparkMax = new CANSparkMax(turningCANId, MotorType.kBrushless);
 
@@ -69,6 +70,8 @@ public class SwerveModule {
 		// Invert the turning controller, since the output shaft rotates in the opposite direction of
 		// the steering motor.
 		m_turningSparkMax.setInverted(true);
+		Timer.delay(1);
+		m_drivingSparkMax.setInverted(driveMotorInvert);
 
 		// Enable PID wrap around for the turning motor. This will allow the PID
 		// controller to go through 0 to get to the setpoint i.e. going from 350 degrees

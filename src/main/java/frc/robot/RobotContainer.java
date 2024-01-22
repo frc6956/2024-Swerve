@@ -161,7 +161,7 @@ public class RobotContainer {
 	/*CommandJoystick joyLeft = new CommandJoystick(Ports.USB.LEFT_JOYSTICK);
 	CommandJoystick joyRight = new CommandJoystick(Ports.USB.RIGHT_JOYSTICK);*/
 	//CommandJoystick joyMain = new CommandJoystick(Ports.USB.MAIN_JOYSTICK);
-	CommandXboxController driverGamepad = new CommandXboxController(Ports.USB.DRIVER_GAMEPAD);
+	CommandXboxController driveController = new CommandXboxController(Ports.USB.DRIVER_GAMEPAD);
 	//CommandXboxController copilotGamepad = new CommandXboxController(Ports.USB.COPILOT_GAMEPAD);
 	
 
@@ -247,9 +247,9 @@ public class RobotContainer {
 			// We are also inverting RightX because we want a positive value when we pull to the left (CCW is positive in mathematics).
 			new RunCommand(
 				() -> drivetrain.drive(
-					-MathUtil.applyDeadband(driverGamepad.getLeftY(), JOYSTICK_AXIS_THRESHOLD),
-					-MathUtil.applyDeadband(driverGamepad.getLeftX(), JOYSTICK_AXIS_THRESHOLD),
-					-MathUtil.applyDeadband(driverGamepad.getRightX(), JOYSTICK_AXIS_THRESHOLD),
+					-MathUtil.applyDeadband(driveController.getLeftY(), JOYSTICK_AXIS_THRESHOLD),
+					-MathUtil.applyDeadband(driveController.getLeftX(), JOYSTICK_AXIS_THRESHOLD),
+					-MathUtil.applyDeadband(driveController.getRightX(), JOYSTICK_AXIS_THRESHOLD),
 					true, true),
 				drivetrain));
 
@@ -268,27 +268,27 @@ public class RobotContainer {
 
 		// driver (joystick)
 
-		driverGamepad.povUp()
+		driveController.povUp()
 			.onTrue(new DrivetrainZeroHeading(drivetrain));	
 
-			driverGamepad.povDown()
+			driveController.povDown()
 			.onTrue(new DrivetrainOppositeHeading(drivetrain));	
 
-			driverGamepad.button(2)
+			driveController.button(2)
 			.whileTrue(new DrivetrainSetXFormation(drivetrain));	
 			
-			driverGamepad.button(3)
+			driveController.button(3)
 			.onTrue(new MoveInLShapeInReverse(drivetrain, this, 3));
 			
-			driverGamepad.button(4)
+			driveController.button(4)
 			.onTrue(new MoveInGammaShape(drivetrain, this, 3));
 
-			driverGamepad.button(5)
+			driveController.button(5)
 			.onTrue(new MoveForward(drivetrain, this, 3));
 			//.onTrue(new DrivetrainTurnAngleUsingPidController(drivetrain, -90));
 			//.onTrue(new MoveInUShapeInReverse(drivetrain, this, 1));
 
-			driverGamepad.button(6)
+			driveController.button(6)
 			.onTrue(new MoveInReverse(drivetrain, this, 3));
 			//.onTrue(new DrivetrainTurnAngleUsingPidController(drivetrain, 90));
 
@@ -547,7 +547,7 @@ public class RobotContainer {
 
 	public XboxController getCopilotGamepad()
 	{
-		return driverGamepad.getHID();
+		return driveController.getHID();
 	}
 
 	public SendableChooser<String> getAutonChooser()

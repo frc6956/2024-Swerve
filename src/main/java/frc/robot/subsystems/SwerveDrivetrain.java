@@ -17,6 +17,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.WPIUtilJNI;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
@@ -30,10 +31,10 @@ import frc.robot.Ports;
  */
 public class SwerveDrivetrain extends SubsystemBase {
 
-	public static final double FRONT_LEFT_VIRTUAL_OFFSET_RADIANS = -1.653; // adjust as needed so that virtual (turn) position of wheel is zero when straight
-	public static final double FRONT_RIGHT_VIRTUAL_OFFSET_RADIANS = -1.650; // adjust as needed so that virtual (turn) position of wheel is zero when straight
-	public static final double REAR_LEFT_VIRTUAL_OFFSET_RADIANS = -0.987; // adjust as needed so that virtual (turn) position of wheel is zero when straight
-	public static final double REAR_RIGHT_VIRTUAL_OFFSET_RADIANS = +1.021; // adjust as needed so that virtual (turn) position of wheel is zero when straight
+	public static final double FRONT_LEFT_VIRTUAL_OFFSET_RADIANS = 1.72;//-1.653; // adjust as needed so that virtual (turn) position of wheel is zero when straight
+	public static final double FRONT_RIGHT_VIRTUAL_OFFSET_RADIANS = -1.49;//-1.650; // adjust as needed so that virtual (turn) position of wheel is zero when straight
+	public static final double REAR_LEFT_VIRTUAL_OFFSET_RADIANS = -1.47;;//-0.987; // adjust as needed so that virtual (turn) position of wheel is zero when straight
+	public static final double REAR_RIGHT_VIRTUAL_OFFSET_RADIANS = -0.39;//+1.021; // adjust as needed so that virtual (turn) position of wheel is zero when straight
 
 	public static final int GYRO_ORIENTATION = -1; // might be able to merge with kGyroReversed
 
@@ -60,22 +61,26 @@ public class SwerveDrivetrain extends SubsystemBase {
 	private final SwerveModule m_frontLeft = new SwerveModule(
 		Ports.CAN.FRONT_LEFT_DRIVING,
 		Ports.CAN.FRONT_LEFT_TURNING,
-		Ports.Analog.FRONT_LEFT_TURNING_ABSOLUTE_ENCODER);
+		Ports.Analog.FRONT_LEFT_TURNING_ABSOLUTE_ENCODER,
+		false);
 
 	private final SwerveModule m_frontRight = new SwerveModule(
 		Ports.CAN.FRONT_RIGHT_DRIVING,
 		Ports.CAN.FRONT_RIGHT_TURNING,
-		Ports.Analog.FRONT_RIGHT_TURNING_ABSOLUTE_ENCODER);
+		Ports.Analog.FRONT_RIGHT_TURNING_ABSOLUTE_ENCODER,
+		false);
 
 	private final SwerveModule m_rearLeft = new SwerveModule(
 		Ports.CAN.REAR_LEFT_DRIVING,
 		Ports.CAN.REAR_LEFT_TURNING,
-		Ports.Analog.REAR_LEFT_TURNING_ABSOLUTE_ENCODER);
+		Ports.Analog.REAR_LEFT_TURNING_ABSOLUTE_ENCODER,
+		false);
 
 	private final SwerveModule m_rearRight = new SwerveModule(
 		Ports.CAN.REAR_RIGHT_DRIVING,
 		Ports.CAN.REAR_RIGHT_TURNING,
-		Ports.Analog.REAR_RIGHT_TURNING_ABSOLUTE_ENCODER);
+		Ports.Analog.REAR_RIGHT_TURNING_ABSOLUTE_ENCODER,
+		true);
 
 	// The gyro sensor
 //	private final AHRS m_gyro = new AHRS(); // usign SPI by default, which is what we want.
@@ -158,6 +163,8 @@ public class SwerveDrivetrain extends SubsystemBase {
 			});
 
 		calculateTurnAngleUsingPidController();
+
+		SmartDashboard.putData(gyro);
 	}
 
 	/**
