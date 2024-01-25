@@ -17,7 +17,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.WPIUtilJNI;
-//import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -35,7 +35,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 	public static final double FRONT_LEFT_VIRTUAL_OFFSET_RADIANS = 1.72;//-1.653; // adjust as needed so that virtual (turn) position of wheel is zero when straight
 	public static final double FRONT_RIGHT_VIRTUAL_OFFSET_RADIANS = -1.49;//-1.650; // adjust as needed so that virtual (turn) position of wheel is zero when straight
 	public static final double REAR_LEFT_VIRTUAL_OFFSET_RADIANS = -1.47;//-0.987; // adjust as needed so that virtual (turn) position of wheel is zero when straight
-	public static final double REAR_RIGHT_VIRTUAL_OFFSET_RADIANS = -0.39;//-0.39;//+1.021; // adjust as needed so that virtual (turn) position of wheel is zero when straight
+	public static final double REAR_RIGHT_VIRTUAL_OFFSET_RADIANS = -0.40;//-0.39;//+1.021; // adjust as needed so that virtual (turn) position of wheel is zero when straight
 
 	public static final int GYRO_ORIENTATION = -1; // might be able to merge with kGyroReversed
 
@@ -120,7 +120,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 		m_frontRight.calibrateVirtualPosition(FRONT_RIGHT_VIRTUAL_OFFSET_RADIANS);
 		m_rearLeft.calibrateVirtualPosition(REAR_LEFT_VIRTUAL_OFFSET_RADIANS);
 		m_rearRight.calibrateVirtualPosition(REAR_RIGHT_VIRTUAL_OFFSET_RADIANS);
-		//Timer.delay(1);
+		Timer.delay(0.50);
 		m_frontLeft.resetEncoders(); // resets relative encoders
 		m_frontRight.resetEncoders();
 		m_rearLeft.resetEncoders();
