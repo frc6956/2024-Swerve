@@ -9,24 +9,24 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 
-import frc.robot.subsystems.Swerve;
+import frc.robot.subsystems.SwerveDrivetrain;
 import frc.robot.Constants;
-import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.apriltagvision.Vision;
 
 public class TeleopLimelightTurret extends Command {
-    private final Limelight limelight;
-    private final Swerve swerve;
+    private final Vision vision;
+    private final SwerveDrivetrain swervedrivetrain;
     private final DoubleSupplier translation;
     private final DoubleSupplier strafe;
     private final BooleanSupplier robotCentric;
 
-    public TeleopLimelightTurret(Limelight limelight, Swerve swerve, DoubleSupplier translation, DoubleSupplier strafeSup, BooleanSupplier robotCentric) {
-        this.limelight = limelight;
-        this.swerve = swerve;
+    public TeleopLimelightTurret(Vision vision, SwerveDrivetrain swervedrivetrain, DoubleSupplier translation, DoubleSupplier strafeSup, BooleanSupplier robotCentric) {
+        this.vision = vision;
+        this.swervedrivetrain = swervedrivetrain;
         this.translation = translation;
         this.strafe = strafeSup;
         this.robotCentric = robotCentric;
-        addRequirements(this.limelight, swerve);
+        addRequirements(this.vision, swervedrivetrain);
     }
 
 
@@ -39,7 +39,7 @@ public class TeleopLimelightTurret extends Command {
      */
     @Override
     public void execute() {
-        limelight.refreshValues();
+        vision.refreshValues();
 
        /* Apply Deadband*/
         double translationVal = MathUtil.applyDeadband(translation.getAsDouble(), Constants.STICK_DEADBAND);
@@ -47,20 +47,20 @@ public class TeleopLimelightTurret extends Command {
 
         /* Calculate Rotation Magnitude */
         PIDController rotController = new PIDController(
-                Constants.Limelight.LIMELIGHT_P,
-                Constants.Limelight.LIMELIGHT_I,
-                Constants.Limelight.LIMELIGHT_D
+                Constants.Vision.VISION_P,
+                Constants.Vision.VISION_I,
+                Constants.Vision.VISION_D
         );
         rotController.enableContinuousInput(Constants.MINIMUM_ANGLE, Constants.MAXIMUM_ANGLE);
 
         // TODO: Calculate more accurate target using RX and RZ angle values, then get rid of varied P in PID
 
         
-        double rotate = rotController.calculate(swerve.getYaw(), swerve.getYaw() + 15 * limelight.getRX());
+        double rotate = rotController.calculate(swervedrivetrain.getYaw(), swervedrivetrain.getYaw() + 15 * limelight.getRX());
 
         /* Drive */
-        swerve.drive(
-            new Translation2d(translationVal, strafeVal).times(Constants.Swerve.MAX_SPEED),
+        swervedrivetrain.drive(
+            new Translation2d(translationVal, strafeVal).times(Constants.SwerveDrivetrain.MAX_SPEED),
             -rotate,
             !robotCentric.getAsBoolean(),
             true
