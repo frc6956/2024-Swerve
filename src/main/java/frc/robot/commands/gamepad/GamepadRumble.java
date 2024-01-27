@@ -32,7 +32,7 @@ public class GamepadRumble extends InstantCommand {
 	@Override
 	public void initialize() {
 		
-		System.out.println("GamepadRumble: initialize");
+	//	System.out.println("GamepadRumble: initialize");
 		gamepad.setRumble(RumbleType.kBothRumble, m_rumble?1:0);
 	}
 

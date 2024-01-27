@@ -26,7 +26,7 @@ public class DrivetrainZeroHeading extends InstantCommand {
 	// Called once when this command runs
 	@Override
 	public void initialize() {
-		System.out.println("DrivetrainZeroHeading: initialize");
+	//	System.out.println("DrivetrainZeroHeading: initialize");
 		drivetrain.zeroHeading();
 	}
 

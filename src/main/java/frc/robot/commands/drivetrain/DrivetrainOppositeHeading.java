@@ -26,7 +26,7 @@ public class DrivetrainOppositeHeading extends InstantCommand {
 	// Called once when this command runs
 	@Override
 	public void initialize() {
-		System.out.println("DrivetrainOppositeHeading: initialize");
+	//	System.out.println("DrivetrainOppositeHeading: initialize");
 		drivetrain.oppositeHeading();
 	}
 

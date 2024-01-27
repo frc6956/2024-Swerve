@@ -422,7 +422,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 			} else { // if we are not on target in this iteration
 				if (onTargetCountTurning > 0) { // even though we were on target at least once during a previous iteration
 					onTargetCountTurning = 0; // we reset the counter as we are not on target anymore
-					System.out.println("Triple-check failed (turning).");
+				//	System.out.println("Triple-check failed (turning).");
 				} else {
 					// we are definitely turning
 				}
@@ -433,7 +433,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 			}
 			
 			if (!isTurning) {
-				System.out.println("You have reached the target (turning).");
+			//	System.out.println("You have reached the target (turning).");
 				stop();				 
 			}
 		}

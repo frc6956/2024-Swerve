@@ -40,7 +40,7 @@ public class FieldSetTrajectory extends InstantCommand {
 	// Called once when this command runs
 	@Override
 	public void initialize() {
-		System.out.println("FieldSetTrajectory: initialize");
+	//	System.out.println("FieldSetTrajectory: initialize");
 
 		if (alsoCenterOnField)
 		{

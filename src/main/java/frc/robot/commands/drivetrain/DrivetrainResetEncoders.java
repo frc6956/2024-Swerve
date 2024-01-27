@@ -26,7 +26,7 @@ public class DrivetrainResetEncoders extends InstantCommand {
 	// Called once when this command runs
 	@Override
 	public void initialize() {
-		System.out.println("DrivetrainResetEncoders: initialize");
+	//	System.out.println("DrivetrainResetEncoders: initialize");
 		drivetrain.resetEncoders();
 	}
 

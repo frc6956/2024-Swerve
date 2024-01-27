@@ -305,10 +305,10 @@ public class LimelightCamera implements /*PIDSource,*/ ICamera {
 			if (distanceToTargetReportedByCamera >= offsetCameraTargetInches) {
 				distance = distanceToTargetReportedByCamera - offsetCameraTargetInches;
 			} else {
-				System.out.println("WARNING: Already at the target!");
+			//	System.out.println("WARNING: Already at the target!");
 			}
 		} else {
-			System.out.println("ERROR: Cannot move to infinity and beyond!");
+		//	System.out.println("ERROR: Cannot move to infinity and beyond!");
 		}
 
 		return -distance;

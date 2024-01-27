@@ -27,7 +27,7 @@ public class CameraSetLedMode extends InstantCommand {
 	// Called once when this command runs
 	@Override
 	public void initialize() {
-		System.out.println("CameraSetLedMode: initialize");
+	//	System.out.println("CameraSetLedMode: initialize");
 		LimelightCamera.setLedMode(ledMode);
 	}
 

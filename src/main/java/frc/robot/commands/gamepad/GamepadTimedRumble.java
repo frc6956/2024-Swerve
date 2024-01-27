@@ -40,7 +40,7 @@ public class GamepadTimedRumble extends WaitCommand {
 	// Called just before this Command runs the first time
 	@Override
 	public void initialize() {
-		System.out.println("GamepadTimedRumble: initialize");
+	//	System.out.println("GamepadTimedRumble: initialize");
 		super.initialize();
 
 		gamepad.setRumble(RumbleType.kBothRumble, m_rumble?1:0);
@@ -55,7 +55,7 @@ public class GamepadTimedRumble extends WaitCommand {
 	// Called once after timeout
 	@Override
 	public void end(boolean interrupted) {
-		System.out.println("GamepadTimedRumble: end");
+	//	System.out.println("GamepadTimedRumble: end");
 		
 		gamepad.setRumble(RumbleType.kBothRumble, 0); // done
 		

@@ -385,28 +385,28 @@ public class RobotContainer {
 	 */
 	public Command getAutonomousCommand() {
 		autonSelected = autonChooser.getSelected();
-		System.out.println("Auton selected: " + autonSelected);	
+		//System.out.println("Auton selected: " + autonSelected);	
 
 		gamePieceSelected = gamePieceChooser.getSelected();
-		System.out.println("Game piece selected: " + gamePieceSelected);		
+		//System.out.println("Game piece selected: " + gamePieceSelected);		
 
 		startPosition = startPositionChooser.getSelected();
-		System.out.println("Start position: " + startPosition);
+		//System.out.println("Start position: " + startPosition);
 
 		mainTarget = mainTargetChooser.getSelected();
-		System.out.println("Main target: " + mainTarget);
+		//System.out.println("Main target: " + mainTarget);
 		
 		cameraOption = cameraOptionChooser.getSelected();
-		System.out.println("Camera option: " + cameraOption);
+		//System.out.println("Camera option: " + cameraOption);
 		
 		sonarOption = sonarOptionChooser.getSelected();
-		System.out.println("Sonar option: " + sonarOption);
+		//System.out.println("Sonar option: " + sonarOption);
 		
 		releaseSelected = releaseChooser.getSelected();
-		System.out.println("Release chosen: " + releaseSelected);
+		//System.out.println("Release chosen: " + releaseSelected);
 
 		autonOption = autonOptionChooser.getSelected();
-		System.out.println("Auton option: " + autonOption);
+		//System.out.println("Auton option: " + autonOption);
 		
 
 		switch (autonSelected) {
