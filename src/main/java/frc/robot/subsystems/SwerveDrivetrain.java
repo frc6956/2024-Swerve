@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
 
+import frc.robot.Constants;
 import frc.robot.Constants.DrivetrainConstants;
 import frc.utils.SwerveUtils;
 import frc.robot.Ports;
@@ -175,6 +176,10 @@ public class SwerveDrivetrain extends SubsystemBase {
 	public Pose2d getPose() {
 		return m_odometry.getPoseMeters();
 	}
+
+	public Rotation2d getYaw() {
+        return Rotation2d.fromDegrees(getHeading());
+    }
 
 	/**
 	 * Resets the odometry to the specified pose.
