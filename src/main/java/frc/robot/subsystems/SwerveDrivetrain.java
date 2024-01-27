@@ -36,7 +36,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 	public static final double FRONT_LEFT_VIRTUAL_OFFSET_RADIANS = 1.72;//-1.653; // adjust as needed so that virtual (turn) position of wheel is zero when straight
 	public static final double FRONT_RIGHT_VIRTUAL_OFFSET_RADIANS = -1.49;//-1.650; // adjust as needed so that virtual (turn) position of wheel is zero when straight
 	public static final double REAR_LEFT_VIRTUAL_OFFSET_RADIANS = -1.47;;//-0.987; // adjust as needed so that virtual (turn) position of wheel is zero when straight
-	public static final double REAR_RIGHT_VIRTUAL_OFFSET_RADIANS = -0.39;//+1.021; // adjust as needed so that virtual (turn) position of wheel is zero when straight
+	public static final double REAR_RIGHT_VIRTUAL_OFFSET_RADIANS = -0.40;//+1.021; // adjust as needed so that virtual (turn) position of wheel is zero when straight
 
 	public static final int GYRO_ORIENTATION = -1; // might be able to merge with kGyroReversed
 
@@ -82,7 +82,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 		Ports.CAN.REAR_RIGHT_DRIVING,
 		Ports.CAN.REAR_RIGHT_TURNING,
 		Ports.Analog.REAR_RIGHT_TURNING_ABSOLUTE_ENCODER,
-		true);
+		false);
 
 	// The gyro sensor
 //	private final AHRS m_gyro = new AHRS(); // usign SPI by default, which is what we want.
@@ -123,6 +123,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 		m_frontRight.resetEncoders();
 		m_rearLeft.resetEncoders();
 		m_rearRight.resetEncoders();
+
 		this.gyro=gyro;
 		zeroHeading(); // resets gyro
 
