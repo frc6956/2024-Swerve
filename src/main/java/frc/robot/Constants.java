@@ -20,6 +20,8 @@ import edu.wpi.first.math.util.Units;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+	public static final double MINIMUM_ANGLE = -180.0;
+    public static final double MAXIMUM_ANGLE = 180.0;
 	public static final class DrivetrainConstants {
 		// Driving Parameters - Note that these are not the maximum capable speeds of
 		// the robot, rather the allowed maximum speeds
@@ -114,4 +116,10 @@ public final class Constants {
 	public static final class NeoMotorConstants {
 		public static final double FREE_SPEED_RPM = 5676;
 	}
+
+	public static final class Vision {
+        public static final double VISION_P = 0.3;
+        public static final double VISION_I = 0.0008;
+        public static final double VISION_D = 0.001;
+    }
 }

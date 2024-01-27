@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.subsystems.SwerveDrivetrain;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.apriltagvision.Vision;
 
 public class TeleopLimelightTurret extends Command {
@@ -42,8 +43,8 @@ public class TeleopLimelightTurret extends Command {
         vision.updateTables();
 
        /* Apply Deadband*/
-        double translationVal = MathUtil.applyDeadband(translation.getAsDouble(), Constants.STICK_DEADBAND);
-        double strafeVal = MathUtil.applyDeadband(strafe.getAsDouble(), Constants.STICK_DEADBAND);
+        double translationVal = MathUtil.applyDeadband(translation.getAsDouble(), RobotContainer.JOYSTICK_AXIS_THRESHOLD);
+        double strafeVal = MathUtil.applyDeadband(strafe.getAsDouble(), RobotContainer.JOYSTICK_AXIS_THRESHOLD);
 
         /* Calculate Rotation Magnitude */
         PIDController rotController = new PIDController(
@@ -56,11 +57,11 @@ public class TeleopLimelightTurret extends Command {
         // TODO: Calculate more accurate target using RX and RZ angle values, then get rid of varied P in PID
 
         
-        double rotate = rotController.calculate(swervedrivetrain.getYaw(), swervedrivetrain.getYaw() + 15 * limelight.getRX());
+        double rotate = rotController.calculate(swervedrivetrain.getYaw(), swervedrivetrain.getYaw() + 15 * vision.getRX());
 
         /* Drive */
-        swervedrivetrain.drive(
-            new Translation2d(translationVal, strafeVal).times(Constants.SwerveDrivetrain.MAX_SPEED),
+        SwerveDrivetrain.drive(
+            new Translation2d(translationVal, strafeVal).times(Constants.DrivetrainConstants.MAX_SPEED_METERS_PER_SECOND),
             -rotate,
             !robotCentric.getAsBoolean(),
             true
