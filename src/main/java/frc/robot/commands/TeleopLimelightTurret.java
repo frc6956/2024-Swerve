@@ -64,8 +64,8 @@ public class TeleopLimelightTurret extends Command {
 
         
         double rotate = rotController.calculate(
-            swervedrivetrain.getHeading(),
-            swervedrivetrain.getHeading() + (vision.getRX() < 0 ? -1 : 1) * Math.atan(
+            0,
+            (vision.getRX() < 0 ? -1 : 1) * Math.atan(
                 Math.pow(vision.getRX(), 2) / Math.pow(vision.getRZ(), 2)
             )
         );
@@ -73,7 +73,7 @@ public class TeleopLimelightTurret extends Command {
         SmartDashboard.putNumber("Vision Rotate", rotate);
         /* Drive */
 
-        if (vision.hasValidTarget() && vision.getTagID() != 0){
+        if (vision.hasValidTarget() && vision.getTagID() == 5){
             swervedrivetrain.drive(
                 translationVal,
                 strafeVal,
