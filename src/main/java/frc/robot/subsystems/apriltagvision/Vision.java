@@ -56,6 +56,24 @@ public class Vision extends SubsystemBase {
     return result;
   }
 
+  public boolean hasSpeakerTarget(){
+    updateTables();
+    if (tv != 0){
+      if (tid == 4 || tid == 7){
+        return true;
+      } else return false;
+    } else return false;
+  }
+
+  public boolean hasAmpTarget(){
+    updateTables();
+    if (tv != 0){
+      if (tid == 5 || tid == 6){
+        return true;
+      } else return false;
+    } else return false;
+  }
+
   public double getTagID(){
     updateTables();
     if (hasValidTarget()){
@@ -64,32 +82,37 @@ public class Vision extends SubsystemBase {
     return 0;
   }
 
-  public double getRX(){
+  public void setPipeline(int pipeline){
+    updateTables();
+    table.getEntry("pipeline").setNumber(pipeline);
+  }
+
+  public double getTX(){
     updateTables();
     return targetpose_robotspace[0];
   }
 
-  public double getRY(){
+  public double getTY(){
     updateTables();
     return targetpose_robotspace[1];
   }
 
-  public double getRZ(){
+  public double getTZ(){
     updateTables();
     return targetpose_robotspace[2];
   }
 
-  public double getPitch(){
+  public double getRX(){
     updateTables();
     return targetpose_robotspace[3];
   }
 
-  public double getHeading(){
+  public double getRY(){
     updateTables();
     return targetpose_robotspace[4];
   }
 
-  public double getRoll(){
+  public double getRZ(){
     updateTables();
     return targetpose_robotspace[5];
   }

@@ -118,8 +118,12 @@ public final class Constants {
 	}
 
 	public static final class Vision {
-        public static final double VISION_P = 1;
-        public static final double VISION_I = 0;//0.0008;
-        public static final double VISION_D = 0;//0.001;
+        public static final double VISION_P = 0.3;
+        public static final double VISION_I = 0.0008;//0.0008;
+        public static final double VISION_D = 0.001 ;//0.001;
+
+		public static double VISION_XP = 0.001;
+		public static double VISION_XI = 0;
+		public static double VISION_XD = 0;
     }
 }

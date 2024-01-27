@@ -18,7 +18,7 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.apriltagvision.Vision;
 
-public class TeleopLimelightTurret extends Command {
+public class TeleopLimelightCenter extends Command {
     private final Vision vision;
     private final SwerveDrivetrain swervedrivetrain;
     private final DoubleSupplier translation;
@@ -26,7 +26,7 @@ public class TeleopLimelightTurret extends Command {
     private final BooleanSupplier robotCentric;
     private final DoubleSupplier rotationJoy;
 
-    public TeleopLimelightTurret(Vision vision, SwerveDrivetrain swervedrivetrain, DoubleSupplier translation, DoubleSupplier strafeSup, DoubleSupplier rotationJoy, BooleanSupplier robotCentric) {
+    public TeleopLimelightCenter(Vision vision, SwerveDrivetrain swervedrivetrain, DoubleSupplier translation, DoubleSupplier strafeSup, DoubleSupplier rotationJoy, BooleanSupplier robotCentric) {
         this.vision = vision;
         this.swervedrivetrain = swervedrivetrain;
         this.translation = translation;
@@ -34,7 +34,7 @@ public class TeleopLimelightTurret extends Command {
         this.rotationJoy = rotationJoy;
         this.robotCentric = robotCentric;
         addRequirements(this.vision, swervedrivetrain);
-        vision.setPipeline(1);
+        vision.setPipeline(2);
     }
 
     /* how to go to apriltag:
@@ -47,7 +47,7 @@ public class TeleopLimelightTurret extends Command {
     @Override
     public void execute() {
         vision.updateTables();
-        vision.setPipeline(1);
+        vision.setPipeline(2);
 
        /* Apply Deadband*/
         double translationVal = MathUtil.applyDeadband(translation.getAsDouble(), RobotContainer.JOYSTICK_AXIS_THRESHOLD);
@@ -60,8 +60,14 @@ public class TeleopLimelightTurret extends Command {
                 Constants.Vision.VISION_I,
                 Constants.Vision.VISION_D
         );
-
         rotController.enableContinuousInput(Constants.MINIMUM_ANGLE, Constants.MAXIMUM_ANGLE);
+
+        PIDController strafePidController = new PIDController(
+            Constants.Vision.VISION_XP,
+            Constants.Vision.VISION_XI, 
+            Constants.Vision.VISION_XD);
+
+        //rotController.enableContinuousInput(Constants, rotationJoy);
 
         // Calculate more accurate target using RX and RZ angle values, then get rid of varied P in PID
 
@@ -73,15 +79,22 @@ public class TeleopLimelightTurret extends Command {
             )
         );
 
+        double strafe = strafePidController.calculate(
+            0,
+            vision.getRY()
+        );
+
+        strafePidController.setTolerance(2);
+
         SmartDashboard.putNumber("Vision Rotate", rotate);
         /* Drive */
 
-        if (vision.hasValidTarget() && vision.hasSpeakerTarget()){
+        if (vision.hasValidTarget() && vision.hasAmpTarget()){
             swervedrivetrain.drive(
                 translationVal,
-                strafeVal,
+                strafe,
                 -rotate,
-            true,
+            false,
             true
             ); 
         }else {

@@ -23,6 +23,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DrivetrainConstants;
 import frc.robot.subsystems.SwerveDrivetrain;
 import frc.robot.subsystems.apriltagvision.Vision;
+import frc.robot.commands.TeleopLimelightCenter;
 import frc.robot.commands.TeleopLimelightTurret;
 import frc.robot.commands.drivetrain.*;
 import frc.robot.auton.common.*;
@@ -249,6 +250,17 @@ public class RobotContainer {
 
 			driveController.povDown()
 			.whileTrue(new DrivetrainSetXFormation(drivetrain));	
+
+			driveController.button(1)
+			.whileTrue(
+				new TeleopLimelightCenter(
+					vision, 
+					drivetrain, 
+					() -> -driveController.getLeftY(),
+					() -> -driveController.getLeftX(),
+					() -> driveController.getRightX(),
+					() -> true)
+			);
 			
 			//driveController.button(3)
 			//.onTrue(new MoveInLShapeInReverse(drivetrain, this, 3));
