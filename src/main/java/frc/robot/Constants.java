@@ -122,7 +122,7 @@ public final class Constants {
         public static final double VISION_I = 0.0008;//0.0008;
         public static final double VISION_D = 0.001 ;//0.001;
 
-		public static double VISION_XP = 0.001;
+		public static double VISION_XP = 0.008;
 		public static double VISION_XI = 0;
 		public static double VISION_XD = 0;
     }

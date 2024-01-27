@@ -67,6 +67,8 @@ public class TeleopLimelightCenter extends Command {
             Constants.Vision.VISION_XI, 
             Constants.Vision.VISION_XD);
 
+        strafePidController.setTolerance(4);
+
         //rotController.enableContinuousInput(Constants, rotationJoy);
 
         // Calculate more accurate target using RX and RZ angle values, then get rid of varied P in PID
@@ -84,7 +86,7 @@ public class TeleopLimelightCenter extends Command {
             vision.getRY()
         );
 
-        strafePidController.setTolerance(2);
+        
 
         SmartDashboard.putNumber("Vision Rotate", rotate);
         /* Drive */
