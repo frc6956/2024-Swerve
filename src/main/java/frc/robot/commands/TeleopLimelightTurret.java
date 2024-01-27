@@ -58,13 +58,14 @@ public class TeleopLimelightTurret extends Command {
         // TODO: Calculate more accurate target using RX and RZ angle values, then get rid of varied P in PID
 
         
-        double rotate = rotController.calculate(swervedrivetrain.getYaw()), swervedrivetrain.getYaw() + 15 * vision.getRX());
+        double rotate = rotController.calculate(swervedrivetrain.getHeading(), (swervedrivetrain.getHeading() + 15 * vision.getRX()));
 
         /* Drive */
-        SwerveDrivetrain.drive(
-            new Translation2d(translationVal, strafeVal).times(Constants.DrivetrainConstants.MAX_SPEED_METERS_PER_SECOND),
+        swervedrivetrain.drive(
+            translationVal,
+            strafeVal,
             -rotate,
-            !robotCentric.getAsBoolean(),
+            true,
             true
         );
     }
