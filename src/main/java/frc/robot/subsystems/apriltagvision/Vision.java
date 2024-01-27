@@ -5,7 +5,6 @@
 package frc.robot.subsystems.apriltagvision;
 
 import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -81,5 +80,38 @@ public class Vision extends SubsystemBase {
     return result;
   }
 
+  public double getTagID(){
+    updateTables();
+    return tid;
+  }
 
+  public double getRX(){
+    updateTables();
+    return targetpose_robotspace[0];
+  }
+
+  public double getRY(){
+    updateTables();
+    return targetpose_robotspace[1];
+  }
+
+  public double getRZ(){
+    updateTables();
+    return targetpose_robotspace[2];
+  }
+
+  public double getPitch(){
+    updateTables();
+    return targetpose_robotspace[3];
+  }
+
+  public double getYaw(){
+    updateTables();
+    return targetpose_robotspace[4];
+  }
+
+  public double getRoll(){
+    updateTables();
+    return targetpose_robotspace[5];
+  }
 }
