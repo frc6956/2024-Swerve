@@ -118,7 +118,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 		m_frontRight.calibrateVirtualPosition(FRONT_RIGHT_VIRTUAL_OFFSET_RADIANS);
 		m_rearLeft.calibrateVirtualPosition(REAR_LEFT_VIRTUAL_OFFSET_RADIANS);
 		m_rearRight.calibrateVirtualPosition(REAR_RIGHT_VIRTUAL_OFFSET_RADIANS);
-		Timer.delay(0.25);
+		Timer.delay(0.5);
 		m_frontLeft.resetEncoders(); // resets relative encoders
 		m_frontRight.resetEncoders();
 		m_rearLeft.resetEncoders();
