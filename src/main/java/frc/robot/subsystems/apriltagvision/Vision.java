@@ -7,6 +7,7 @@ package frc.robot.subsystems.apriltagvision;
 import edu.wpi.first.networktables.DoubleArraySubscriber;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Vision extends SubsystemBase {
@@ -40,7 +41,6 @@ public class Vision extends SubsystemBase {
 
   @Override
   public void periodic() {
-    //System.out.println(getTagID());;
   }
 
   public void updateTables(){
@@ -58,7 +58,10 @@ public class Vision extends SubsystemBase {
 
   public double getTagID(){
     updateTables();
-    return tid;
+    if (hasValidTarget()){
+      return tid;
+    }
+    return 0;
   }
 
   public double getRX(){
@@ -81,7 +84,7 @@ public class Vision extends SubsystemBase {
     return targetpose_robotspace[3];
   }
 
-  public double getYaw(){
+  public double getHeading(){
     updateTables();
     return targetpose_robotspace[4];
   }

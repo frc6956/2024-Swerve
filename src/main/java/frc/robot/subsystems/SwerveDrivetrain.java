@@ -179,9 +179,14 @@ public class SwerveDrivetrain extends SubsystemBase {
 		return m_odometry.getPoseMeters();
 	}
 
-	public Rotation2d getYaw() {
-        return Rotation2d.fromDegrees(getHeading());
-    }
+	//public double getYaw() {
+	//	return gyro.getYaw().getValueAsDouble();
+    //}
+
+	public Rotation2d getYaw(){
+		return Rotation2d.fromDegrees(getHeading());
+
+	}
 
 	/**
 	 * Resets the odometry to the specified pose.

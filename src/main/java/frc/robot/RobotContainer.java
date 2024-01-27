@@ -6,6 +6,10 @@ package frc.robot;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
+
+import java.util.function.BooleanSupplier;
+import java.util.function.DoubleSupplier;
+
 import com.ctre.phoenix6.hardware.Pigeon2;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -19,6 +23,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DrivetrainConstants;
 import frc.robot.subsystems.SwerveDrivetrain;
 import frc.robot.subsystems.apriltagvision.Vision;
+import frc.robot.commands.TeleopLimelightTurret;
 import frc.robot.commands.drivetrain.*;
 import frc.robot.auton.common.*;
 
@@ -239,26 +244,35 @@ public class RobotContainer {
 		driveController.povUp()
 			.onTrue(new DrivetrainZeroHeading(drivetrain));	
 
-			driveController.povDown()
-			.onTrue(new DrivetrainOppositeHeading(drivetrain));	
+			//driveController.povDown()
+			//.onTrue(new DrivetrainOppositeHeading(drivetrain));	
 
-			driveController.button(2)
+			driveController.povDown()
 			.whileTrue(new DrivetrainSetXFormation(drivetrain));	
 			
-			driveController.button(3)
-			.onTrue(new MoveInLShapeInReverse(drivetrain, this, 3));
+			//driveController.button(3)
+			//.onTrue(new MoveInLShapeInReverse(drivetrain, this, 3));
 			
-			driveController.button(4)
-			.onTrue(new MoveInGammaShape(drivetrain, this, 3));
+			//driveController.button(4)
+			//.onTrue(new MoveInGammaShape(drivetrain, this, 3));
 
-			driveController.button(5)
-			.onTrue(new MoveForward(drivetrain, this, 3));
+			//driveController.button(5)
+			//.onTrue(new MoveForward(drivetrain, this, 3));
 			//.onTrue(new DrivetrainTurnAngleUsingPidController(drivetrain, -90));
 			//.onTrue(new MoveInUShapeInReverse(drivetrain, this, 1));
 
-			driveController.button(6)
-			.onTrue(new MoveInReverse(drivetrain, this, 3));
+			driveController.button(2)
+			//.onTrue(new MoveInReverse(drivetrain, this, 3));
 			//.onTrue(new DrivetrainTurnAngleUsingPidController(drivetrain, 90));
+			.whileTrue(
+				new TeleopLimelightTurret(
+					vision, 
+					drivetrain, 
+					() -> -driveController.getLeftY(),
+					() -> -driveController.getLeftX(),
+					() -> driveController.getRightX(),
+					() -> true)
+			);
 
 /*
 		joyMain.button(7)

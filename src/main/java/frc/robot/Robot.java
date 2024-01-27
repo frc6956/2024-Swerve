@@ -153,6 +153,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putString("Sonar option", m_robotContainer.getSonarOptionChooser().getSelected());
 		SmartDashboard.putString("Release chosen", m_robotContainer.getReleaseChooser().getSelected());
 		SmartDashboard.putString("Auton option", m_robotContainer.getAutonOptionChooser().getSelected());
+
+		SmartDashboard.putNumber("Current April Tag ID", m_robotContainer.getVision().getTagID());
 	}
 
 	@Override
