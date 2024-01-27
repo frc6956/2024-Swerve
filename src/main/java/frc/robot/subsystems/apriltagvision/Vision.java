@@ -80,6 +80,11 @@ public class Vision extends SubsystemBase {
     return result;
   }
 
+  public double getTagID(){
+    updateTables();
+    return tid;
+  }
+
   public double getRX(){
     updateTables();
     return targetpose_robotspace[0];

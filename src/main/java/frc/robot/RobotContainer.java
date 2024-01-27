@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DrivetrainConstants;
 import frc.robot.subsystems.SwerveDrivetrain;
+import frc.robot.subsystems.apriltagvision.Vision;
 import frc.robot.commands.drivetrain.*;
 import frc.robot.auton.common.*;
 
@@ -114,7 +115,7 @@ public class RobotContainer {
 	// motorized devices
 	private final Pigeon2 gyro = new Pigeon2(0);
 	private final SwerveDrivetrain drivetrain = new SwerveDrivetrain(gyro);
-
+	private final Vision vision = new Vision();
 	
 	// pneumatic devices
 
@@ -505,6 +506,10 @@ public class RobotContainer {
 	public SwerveDrivetrain getDrivetrain()
 	{
 		return drivetrain;
+	}
+
+	public Vision getVision(){
+		return vision;
 	}
 
 	//public Joystick getMainJoystick()

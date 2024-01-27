@@ -144,6 +144,7 @@ public class Robot extends TimedRobot {
 
 		m_robotContainer.getField().setRobotPose(m_robotContainer.getDrivetrain().getPose());
 		SmartDashboard.putNumber(   "Heading",             m_robotContainer.getDrivetrain().getHeading());
+		SmartDashboard.putNumber("Current April Tag ID", m_robotContainer.getVision().getTagID());
 
 		SmartDashboard.putString("Auton selected", m_robotContainer.getAutonChooser().getSelected());	
 		SmartDashboard.putString("Game piece", m_robotContainer.getGamePieceChooser().getSelected());

@@ -39,7 +39,7 @@ public class TeleopLimelightTurret extends Command {
      */
     @Override
     public void execute() {
-        vision.refreshValues();
+        vision.updateTables();
 
        /* Apply Deadband*/
         double translationVal = MathUtil.applyDeadband(translation.getAsDouble(), Constants.STICK_DEADBAND);
