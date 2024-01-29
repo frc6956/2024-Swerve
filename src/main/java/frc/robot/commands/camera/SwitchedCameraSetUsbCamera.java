@@ -26,7 +26,7 @@ public class SwitchedCameraSetUsbCamera extends InstantCommand {
 	// Called once when this command runs
 	@Override
 	public void initialize() {
-	//	System.out.println("SwitchedCameraSetUsbCamera: initialize");
+		System.out.println("SwitchedCameraSetUsbCamera: initialize");
 		SwitchedCamera.setUsbCamera(camera);
 	}
 

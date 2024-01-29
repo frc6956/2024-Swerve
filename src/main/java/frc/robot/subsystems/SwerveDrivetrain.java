@@ -389,7 +389,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 		
 		double heading = getHeading() - angle;
 
-		//System.out.println("requested heading " + heading);
+		System.out.println("requested heading " + heading);
 		
 		turnPidController.setSetpoint(heading); // sets the heading
 
@@ -404,7 +404,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 	public void calculateTurnAngleUsingPidController() {	
 		if (isTurning) {
 
-			//System.out.println("current heading: " + getHeading());
+			System.out.println("current heading: " + getHeading());
 
 			double output = MathUtil.clamp(turnPidController.calculate(getHeading()), -MAX_TURN_PCT_OUTPUT, MAX_TURN_PCT_OUTPUT);
 			pidWriteRotation(output);
@@ -422,7 +422,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 			} else { // if we are not on target in this iteration
 				if (onTargetCountTurning > 0) { // even though we were on target at least once during a previous iteration
 					onTargetCountTurning = 0; // we reset the counter as we are not on target anymore
-				//	System.out.println("Triple-check failed (turning).");
+					System.out.println("Triple-check failed (turning).");
 				} else {
 					// we are definitely turning
 				}
@@ -433,7 +433,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 			}
 			
 			if (!isTurning) {
-			//	System.out.println("You have reached the target (turning).");
+				System.out.println("You have reached the target (turning).");
 				stop();				 
 			}
 		}
@@ -442,8 +442,8 @@ public class SwerveDrivetrain extends SubsystemBase {
 
 	public void pidWriteRotation(double output) {
 
-		//System.out.println("position error: " + turnPidController.getPositionError());
-		//System.out.println("raw output: " + output);
+		System.out.println("position error: " + turnPidController.getPositionError());
+		System.out.println("raw output: " + output);
 		
 		// calling disable() on controller will force a call to pidWrite with zero output
 		// which we need to handle by not doing anything that could have a side effect 
@@ -456,7 +456,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 			output = Math.signum(output) * MIN_TURN_PCT_OUTPUT;
 		}
 
-		//System.out.println("output: " + output);
+		System.out.println("output: " + output);
 
 		drive(0, 0, output, false, false); // double-check sign
 	}

@@ -20,7 +20,7 @@ public class DrivetrainSetXFormation extends Command {
 	// Called just before this Command runs the first time
 	@Override
 	public void initialize() {
-	//	System.out.println("DrivetrainSetXFormation: initialize");
+		System.out.println("DrivetrainSetXFormation: initialize");
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -38,6 +38,6 @@ public class DrivetrainSetXFormation extends Command {
 	// Called once after isFinished returns true
 	@Override
 	public void end(boolean interrupted) {
-	//	System.out.println("DrivetrainSetXFormation: end");
+		System.out.println("DrivetrainSetXFormation: end");
 	}
 }

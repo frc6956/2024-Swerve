@@ -23,7 +23,7 @@ public class DrivetrainTurnAngleUsingPidController extends Command {
 	// Called just before this Command runs the first time
 	@Override
 	public void initialize() {
-	//	System.out.println("DrivetrainTurnAngleUsingPidController: initialize");
+		System.out.println("DrivetrainTurnAngleUsingPidController: initialize");
 
 		drivetrain.turnAngleUsingPidController(m_angle);
 	}
@@ -43,7 +43,7 @@ public class DrivetrainTurnAngleUsingPidController extends Command {
 	// Called once after isFinished returns true
 	@Override
 	public void end(boolean interrupted) {
-	//	System.out.println("DrivetrainTurnAngleUsingPidController: end");
+		System.out.println("DrivetrainTurnAngleUsingPidController: end");
 		drivetrain.stop();
 	}
 }

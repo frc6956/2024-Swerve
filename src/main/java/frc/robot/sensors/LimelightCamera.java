@@ -150,7 +150,7 @@ public class LimelightCamera implements /*PIDSource,*/ ICamera {
 			return number; // all tables have the same size so any length
 								// can be used (might be zero)
 		} else {
-			//System.out.println("cannot get number of targets");
+			System.out.println("cannot get number of targets");
 			return 0; // best answer in that case
 		}
 	}
@@ -305,10 +305,10 @@ public class LimelightCamera implements /*PIDSource,*/ ICamera {
 			if (distanceToTargetReportedByCamera >= offsetCameraTargetInches) {
 				distance = distanceToTargetReportedByCamera - offsetCameraTargetInches;
 			} else {
-			//	System.out.println("WARNING: Already at the target!");
+				System.out.println("WARNING: Already at the target!");
 			}
 		} else {
-		//	System.out.println("ERROR: Cannot move to infinity and beyond!");
+			System.out.println("ERROR: Cannot move to infinity and beyond!");
 		}
 
 		return -distance;
