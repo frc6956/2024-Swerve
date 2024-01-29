@@ -17,7 +17,7 @@ public class DoNothing extends InstantCommand {
 	// Called once when the command executes
 	@Override
 	public void initialize() {
-	//	System.out.println("DoNothing: initialize");
+		System.out.println("DoNothing: initialize");
 	}
 
 }

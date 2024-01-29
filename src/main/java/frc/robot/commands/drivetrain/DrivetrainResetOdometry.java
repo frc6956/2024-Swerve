@@ -30,7 +30,7 @@ public class DrivetrainResetOdometry extends InstantCommand {
 	// Called once when this command runs
 	@Override
 	public void initialize() {
-	//	System.out.println("DrivetrainResetOdometry: initialize");
+		System.out.println("DrivetrainResetOdometry: initialize");
 		drivetrain.resetOdometry(pose2d);
 	}
 

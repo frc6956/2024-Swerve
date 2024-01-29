@@ -32,14 +32,14 @@ public class DrivetrainFollowTrajectory extends SwerveControllerCommand {
 	// Called just before this Command runs the first time
 	@Override
 	public void initialize() {
-	//	System.out.println("DrivetrainFollowTrajectory: initialize");
+		System.out.println("DrivetrainFollowTrajectory: initialize");
 		super.initialize();
 	}
 
 	// Called once after isFinished returns true
 	@Override
 	public void end(boolean interrupted) {
-	//	System.out.println("DrivetrainFollowTrajectory: end");
+		System.out.println("DrivetrainFollowTrajectory: end");
 		super.end(interrupted);
 	}
 }
