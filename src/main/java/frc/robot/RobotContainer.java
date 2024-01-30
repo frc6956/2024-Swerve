@@ -56,10 +56,9 @@ public class RobotContainer {
 	public static final String AUTON_SAMPLE_MOVE_IN_REVERSE = "Sample Move In Reverse";
 	public static final String AUTON_SAMPLE_MOVE_IN_GAMMA_SHAPE = "Sample Move In Gamma Shape";
 	public static final String AUTON_SAMPLE_MOVE_IN_L_SHAPE_IN_REVERSE = "Sample Move In L Shape In Reverse";
-	public static final String AUTON_TEST_HARDCODED_MOVE_1 = "Test Hardcoded Move 1";
-	public static final String AUTON_TEST_HARDCODED_MOVE_2 = "Test Hardcoded Move 2";
 	private String autonSelected;
 	private SendableChooser<String> autonChooser = new SendableChooser<>();
+	
 
 
 	// motorized devices
@@ -80,7 +79,7 @@ public class RobotContainer {
 	CommandJoystick joyRight = new CommandJoystick(Ports.USB.RIGHT_JOYSTICK);*/
 	//CommandJoystick joyMain = new CommandJoystick(Ports.USB.MAIN_JOYSTICK);
 	CommandXboxController driveController = new CommandXboxController(Ports.USB.DRIVER_GAMEPAD);
-	//CommandXboxController copilotGamepad = new CommandXboxController(Ports.USB.COPILOT_GAMEPAD);
+	CommandXboxController copilotGamepad = new CommandXboxController(Ports.USB.COPILOT_GAMEPAD);
 	
 
 	/**
@@ -97,8 +96,6 @@ public class RobotContainer {
 		autonChooser.addOption("Sample Move In Reverse", AUTON_SAMPLE_MOVE_IN_REVERSE);
 		autonChooser.addOption("Sample Move In Gamma Shape", AUTON_SAMPLE_MOVE_IN_GAMMA_SHAPE);
 		autonChooser.addOption("Sample Move In L Shape In Reverse", AUTON_SAMPLE_MOVE_IN_L_SHAPE_IN_REVERSE);
-		autonChooser.addOption("Test Hardcoded Move 1", AUTON_TEST_HARDCODED_MOVE_1);
-		autonChooser.addOption("Test Hardcoded Move 2", AUTON_TEST_HARDCODED_MOVE_2);
 		SmartDashboard.putData("Auto choices", autonChooser);
 		
 
@@ -182,26 +179,7 @@ public class RobotContainer {
 					() -> true)
 			);
 
-/*
-		joyMain.button(7)
-			.whileTrue(new RollerJoystickControl(roller, drivetrain, getMainJoystick()));
-		
-		joyMain.button(8)
-			.whileTrue(new NeckJoystickControl(neck, drivetrain, getMainJoystick()));
-		
-		joyMain.button(9)
-			.whileTrue(new DrawerJoystickControl(drawer, drivetrain, getMainJoystick()));
-		
-		joyMain.button(10)
-			.whileTrue(new ElevatorJoystickControl(elevator, drivetrain, getMainJoystick()));
-
-		//joyMain.button(11)
-			//.onTrue(new DrivetrainZeroHeading(drivetrain));
-		
-		//joyMain.button(12)
-			//.whileTrue(new DrivetrainSetXFormation(drivetrain));
-			
-				
+/* 
 		// copilot (gamepad)
 		
 		copilotGamepad.a()
@@ -295,7 +273,6 @@ public class RobotContainer {
 		autonSelected = autonChooser.getSelected();
 		System.out.println("Auton selected: " + autonSelected);
 		
-
 		switch (autonSelected) {
 			case AUTON_SAMPLE_SWERVE:
 				//return createSwerveControllerCommand(createExampleTrajectory());
@@ -318,16 +295,6 @@ public class RobotContainer {
 			case AUTON_SAMPLE_MOVE_IN_L_SHAPE_IN_REVERSE:
 				return new MoveInLShapeInReverse(drivetrain, this, 3);
 				//break;
-
-			case AUTON_TEST_HARDCODED_MOVE_1:
-				return new CompletelyLeaveCommunity(drivetrain, this);
-				//break;
-
-			case AUTON_TEST_HARDCODED_MOVE_2:
-				return new MoveInNonBumpKTurn(drivetrain, this);
-				//break;
-
-
 			case AUTON_DO_NOTHING:
 				return null;
 				//break;
@@ -413,11 +380,6 @@ public class RobotContainer {
 		return vision;
 	}
 
-	//public Joystick getMainJoystick()
-	//{
-//		return joyMain.getHID();
-//	}
-
 	public XboxController getCopilotGamepad()
 	{
 		return driveController.getHID();
@@ -426,5 +388,17 @@ public class RobotContainer {
 	public SendableChooser<String> getAutonChooser()
 	{
 		return autonChooser;
+	}
+
+	public double getX(){
+		return driveController.getLeftX();
+	}
+
+	public double getY(){
+		return driveController.getLeftY();
+	}
+
+	public double getRot(){
+		return driveController.getRightX();
 	}
 }

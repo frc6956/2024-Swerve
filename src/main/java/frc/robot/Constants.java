@@ -108,6 +108,9 @@ public final class Constants {
 		public static final double Y_CONTROLLER_P = 1;
 		public static final double THETA_CONTROLLER_P = 1;
 
+		public static final double SLOW_VELOCITY = 1;
+		public static final double SLOW_ACCELERATION = 1;
+
 		// Constraint for the motion profiled robot angle controller
 		public static final TrapezoidProfile.Constraints THETA_CONTROLLER_CONSTRAINTS = new TrapezoidProfile.Constraints(
 			MAX_ANGULAR_SPEED_RADIANS_PER_SECOND, MAX_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED);
